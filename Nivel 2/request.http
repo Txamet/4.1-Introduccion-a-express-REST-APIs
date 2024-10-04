@@ -48,10 +48,6 @@ Content-Type: application/json
 DELETE {{BASE_URL}}/contacts/1
 
 
-### Show user 1 deleted contacts
-GET {{BASE_URL}}/contacts/1/deleted
-
-
 ### Recover contact 1
 PATCH {{BASE_URL}}/contacts/1/recover
 
@@ -68,16 +64,8 @@ Content-Type: application/json
 }
 
 
-### Show user 1 contact list
-GET {{BASE_URL}}/contacts/1
-
-
 ### Mark as favorite contact 2
 PATCH {{BASE_URL}}/contacts/2/favorites
-
-
-### Show user 1 favorite contacts
-GET {{BASE_URL}}/contacts/1/favorites
 
 
 ### Show a list with all the contacts
