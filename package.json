@@ -6,8 +6,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Jaume Blanco - Rene Hernandez",
+  "license": "MIT",
   "description": "",
   "dependencies": {
     "@prisma/client": "^5.20.0",
