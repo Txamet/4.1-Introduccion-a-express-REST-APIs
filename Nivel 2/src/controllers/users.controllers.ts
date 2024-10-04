@@ -45,6 +45,3 @@ export const uptadeUser = (async(req: any, res: any)=>{
         res.end("Error: Invalid format of data")
     }
 });
-
-
-
