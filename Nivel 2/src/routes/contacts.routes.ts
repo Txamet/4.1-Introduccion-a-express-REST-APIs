@@ -1,5 +1,5 @@
 import express from "express";
-import { deleteContact, uptadeContact, recoverContact, favoriteContact, getContacts, createUserContact } from "../controllers/contacts.controllers";
+import { deleteContact, uptadeContact, recoverContact, favoriteContact, getContacts, createUserContact, getUserContacts, getUserFavorites, getUserDeletedContacts } from "../controllers/contacts.controllers";
 
 const router = express.Router();
 
@@ -16,5 +16,10 @@ router.get("/", getContacts)
 
 router.post("/:userId", createUserContact);
 
+router.get("/:userId",getUserContacts);
+
+router.get("/:userId/favorites", getUserFavorites)
+
+router.get("/:userId/deleted", getUserDeletedContacts)
 
 export default router;

@@ -56,7 +56,7 @@ Clona el repositorio localmente usando el siguiente comando:
 ### 2. Seleccionar la carpeta raíz del proyecto
 Una vez clonado el repositorio, navega a la carpeta raíz:
 
-`cd 4.1-Introduccion-a-express-REST-APIs`
+`cd 4.1-Introduccion-a-express-REST-APIs\Nivel2`
 
 ### 3. Instalar dependencias
 
