@@ -112,6 +112,12 @@ export const createUserContact = (async (req: any, res: any) => {
         if (!searchUserId) return res.status(400).end("User not found")
 
         const { name, last_name, email, phone_number } = req.body;
+        const searchUserEmail = await prisma.contact.findFirst({
+            where: { email }
+        })
+
+        if (searchUserEmail) return res.status(400).end("Contact already exists")
+
         const newUserContact = await prisma.contact.create({
             data: {
                 name, last_name, email, phone_number, userId: Number(idUser)
