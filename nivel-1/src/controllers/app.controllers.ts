@@ -1,141 +1,102 @@
 import { PrismaClient } from '@prisma/client';
+import { getAllContacts, createNewContact, deleteOneContact, uptadeOneContact, recoverOneContact, favoriteOneContact, findContactByEmail, findContactById, findDeletedContactById } from "../models/app.models"
 
 const prisma = new PrismaClient();
 
-export const getContact = (async(req: any, res: any)=>{
-    const contactId: number = req.params.contactId;
-    const showContact = await prisma.contact.findFirst({
-        where: {contactId: Number(contactId), deleted: false}
-    })
-
-    if (!showContact) { 
-        res.status(404).end("Contact not found")
-    } else {
-        res.json(showContact)
-    }
-});
-
-export const getContacts = (async(req: any, res: any)=>{
-    const showContacts = await prisma.contact.findMany({
-       where: {deleted:false}
-   });
-
-   if (showContacts.length == 0) {
-        res.status(200).end("Contacts list is empty")    
-    } else {
-        res.json(showContacts)     
-    }
-});
-
 export const createContact = (async(req: any, res: any)=>{
     try {
-        const {name, last_name, email, phone_number}= req.body;
-        const searchContact = await prisma.contact.findFirst({
-            where: {email, deleted: false}
-        });
+        const searchContact = await findContactByEmail(req.body);
+        if (searchContact) return res.status(400).json({error: "Contact already exists"});
 
-        if (searchContact) return res.status(400).end("Contact already exists")
+        const newContact = await createNewContact(req.body);
+        if (!newContact) return res.status(404).json({error: "Invalid format of data"});
 
-        const newContact = await prisma.contact.create({
-            data:{
-             name, last_name, email, phone_number
-            }
-        });
-
-        res.json(newContact)  
+        res.status(200).json(newContact);  
 
     } catch (error) {
-        res.status(500);
-        res.end("Error: Invalid format of data")
+        res.status(500).json({error: "Error creating contact"});
     }
 });
 
 export const deleteContact = (async(req: any,res: any)=>{
-    const contactId: number = req.params.contactId;
-    const showContact = await prisma.contact.findFirst({
-        where: {contactId: Number(contactId)}
-    });
+    try {
+        const searchContact = await findContactById(req.params.contactId);
 
-    if (!showContact || showContact.deleted == true) {
-        res.status(404).end("Contact not found");
+        if (!searchContact) {
+            res.status(404).json({error: "Contact not found"});
 
-    } else {
-        const eraseContact= await prisma.contact.update({
-            where:{contactId: Number(contactId)},
-            data:{deleted: true}
-        });
-    
-        res.status(200).json("Contact deleted") ;
+        } else {
+            await deleteOneContact(req.params.contactId);
+            res.status(200).end("Contact deleted") ;
+        }
+
+    } catch (error) {
+        res.status(500).json({error: "Error retrieving contact"});
     }
 });
 
 export const uptadeContact = (async(req: any, res: any)=>{
     try {
-        const contactId: number = req.params.contactId;
-        const searchDeletedContact = await prisma.contact.findFirst({
-            where: {contactId: Number(contactId), deleted: false}
-        });
+        const searchContact = await findContactById(req.params.contactId);
+        if (!searchContact) return res.status(404).json({error: "Contact not found"});
 
-        if (!searchDeletedContact) return res.status(404).end("Contact not found")
+        const putContact = await uptadeOneContact(req.params.contactId, req.body);
+        if (!putContact) return res.status(404).json({error: "Invalid format of data"});
 
-        const {name, last_name, email, phone_number} = req.body;
-        const putContact = await prisma.contact.update({
-            where: {contactId : Number(contactId)},
-            data:{name, last_name, email, phone_number}
-        });
-
-        res.status(200).json(putContact)
+        res.status(200).json(putContact);
     
     } catch (error) {
-        res.status(500);
-        res.end("Error: Invalid format of data")
+        res.status(500).json({error: "Error retrieving contact"});
     }
 });
 
 export const recoverContact = (async (req: any, res: any) => {
-    const contactId = req.params.contactId;
-    const searchDeletedContact = await prisma.contact.findFirst({
-        where: {contactId: Number(contactId), deleted: true}
-    });
+    try {
+        const searchContactById = await findDeletedContactById(req.params.contactId);
+        if (!searchContactById) return res.status(404).json({error: "Contact not found"});
 
-    if (!searchDeletedContact) return res.status(404).end("Contact not found")
-
-    const searchContact = await prisma.contact.findFirst({
-        where: {email: searchDeletedContact?.email, deleted: false}
-    })
-
-    if (searchContact) return res.status(400).end("Contact already exists with another contactId")
+        const searchContactByEmail = await findContactByEmail(searchContactById);
+        if (searchContactByEmail) return res.status(400).json({error: "Contact already exists with another contactId"});
     
-    const recoveredContact = await prisma.contact.update({
-        where: {contactId: Number(contactId)},
-        data: { deleted: false },
-    });
+        await recoverOneContact(req.params.contactId);
+        res.status(200).end("Contact recovered"); 
 
-    res.status(200).json("Contact recovered"); 
+    } catch (error) {
+        res.status(500).json({error: "Error retrieving contact"});
+    }
 });
 
 export const favoriteContact = (async (req: any, res: any) => {
-    const contactId = req.params.contactId;
-    const showContact = await prisma.contact.findFirst({
-        where: {contactId: Number(contactId), deleted: false}
-    });
+    try {
+        const searchContact = await findContactById(req.params.contactId);
+        if (!searchContact) return res.status(404).json({error: "Contact not found"});
 
-    if(!showContact) return res.status(404).end("Contact not found");
+        const setFavorite = await favoriteOneContact(req.params.contactId);
+        
+        if (setFavorite.favorite == true) {
+            res.status(200).json("Contact is favorite now");
 
-    if (showContact?.favorite == false) {
-        const favContact = await prisma.contact.update({
-            where: {contactId: Number(contactId)},
-            data: { favorite: true },
-        });
-
-        res.status(200).json("Contact is favorite now")
-
-    } else {
-        const noFavContact = await prisma.contact.update({
-            where: {contactId: Number(contactId)},
-            data: { favorite: false },
-        });
-
-        res.status(200).json("Contact is no longer a favorite")
+        } else { 
+            res.status(200).json("Contact is no longer a favorite"); 
+        }
+    
+    } catch (error) {
+        res.status(500).json({error: "Error retrieving contact"});
     }
-})
+});
+
+export const getContacts = (async(req: any, res: any)=>{
+    try {
+        const showContacts = await getAllContacts();
+
+        if (showContacts.length == 0) {
+            res.status(200).json({error: "Contacts list is empty"});  
+
+        } else {
+            res.json(showContacts);     
+        }
+
+    } catch (error) {
+        res.status(500).json({error: "Error retrieving contacts"})
+    }
+});
