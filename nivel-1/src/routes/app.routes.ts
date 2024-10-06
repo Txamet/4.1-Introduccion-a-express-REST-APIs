@@ -1,4 +1,4 @@
-import express, { json } from "express";
+import express from "express";
 import { getContacts, createContact, deleteContact, uptadeContact, recoverContact, favoriteContact } from "../controllers/app.controllers";
 
 const router = express.Router();
