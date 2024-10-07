@@ -7,7 +7,7 @@ POST {{BASE_URL}}/users
 Content-Type: application/json
 
 {
-    "name": "Jimmy Page"
+    "name": "Jessica Sage"
 }
 
 
@@ -21,25 +21,25 @@ Content-Type: application/json
 
 
 ### Add contact 1 to user 1 list
-POST {{BASE_URL}}/contacts/1
+POST {{BASE_URL}}/contacts/2
 Content-Type: application/json
 
 {
     "name": "Samantha",
     "last_name": "Doe",
-    "email": "sam_doe@gmail.com",
-    "phone_number": 600000021
+    "email": "sam@gmail.com",
+    "phone_number": 600000521
 }
 
 
 ### Add contact 2 to user 1 list
-POST {{BASE_URL}}/contacts/1
+POST {{BASE_URL}}/contacts/2
 Content-Type: application/json
 
 {
     "name": "John",
     "last_name": "Doe",
-    "email": "john_doe@gmail.com",
+    "email": "john@gmail.com",
     "phone_number": 600000000
 }
 
@@ -75,4 +75,4 @@ GET {{BASE_URL}}/contacts/2
 GET {{BASE_URL}}/contacts/1/favorites
 
 ### Show user 2 Deleted contacts list
-GET {{BASE_URL}}/contacts/2/deleted
+GET {{BASE_URL}}/contacts/1/deleted

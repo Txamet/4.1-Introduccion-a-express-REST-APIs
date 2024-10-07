@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest --runInBand"
   },
   "keywords": [],
   "author": "Jaume Blanco - Rene Hernandez",
@@ -16,10 +16,12 @@
   "devDependencies": {
     "@types/express": "^5.0.0",
     "@types/jest": "^29.5.13",
+    "@types/supertest": "^6.0.2",
     "express": "^4.21.0",
     "jest": "^29.7.0",
     "nodemon": "^3.1.7",
     "prisma": "^5.20.0",
+    "supertest": "^7.0.0",
     "ts-jest": "^29.2.5",
     "typescript": "^5.6.2"
   }
