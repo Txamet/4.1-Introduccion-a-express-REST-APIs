@@ -1,4 +1,4 @@
-import type { Config } from "@jest/types"
+import { Config } from "@jest/types"
 
 const config: Config.InitialOptions = {
    	preset: "ts-jest",
@@ -6,6 +6,8 @@ const config: Config.InitialOptions = {
     verbose: true,
     setupFilesAfterEnv: ['./client.ts'],
     clearMocks: true,
+    setupFiles: ['./jest.setup.ts'],
+    testMatch: ['**/test/**/*.test.ts'],
 };
 
 export default config;

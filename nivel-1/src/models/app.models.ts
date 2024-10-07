@@ -9,6 +9,7 @@ if (process.env.NODE_ENV === 'test') {
     prisma = new PrismaClient();
 }
 
+
 export const getAllContacts = async () => {
     return await prisma.contact.findMany({
         where: { deleted: false }
