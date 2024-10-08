@@ -1,47 +1,30 @@
-import { prisma } from "../models/db.models";
+import { searchUser, findUserById, createNewUser, updateNewUser } from "../models/users.models";
 
-export const createUser = (async(req: any, res: any)=>{
+//crear usuario
+export const createUser = (async (req: any, res: any) => {
     try {
-        const {name}= req.body;
-        const searchUser = await prisma.user.findFirst({
-            where: {name}
-        });
+        const findUser = await searchUser(req.body);
+        if (findUser) return res.status(400).json({ error: "User already exist" });
 
-        if (searchUser) return res.status(400).end("User already exists")
+        const newUser = await createNewUser(req.body);
+        if (!newUser) return res.status(404).json({ error: "invalid formato of data" });
 
-        const newUser = await prisma.user.create({
-            data:{
-             name
-            }
-        });
-
-        res.json(newUser)  
-
+        res.status(200).json(newUser);
     } catch (error) {
-        res.status(500);
-        res.end("Error: Invalid format of data")
+        res.status(500).json({ error: "Error creating user" });
     }
+
 });
 
-export const uptadeUser = (async(req: any, res: any)=>{
+//Update usuario
+export const updateUser = (async (req: any, res: any) => {
     try {
-        const userId: number = req.params.userId;
-        const searchUser = await prisma.user.findFirst({
-            where: {id: Number(userId)}
-        });
-
-        if (!searchUser) return res.status(404).end("User not found")
-
-        const {name} = req.body;
-        const patchUser = await prisma.user.update({
-            where: {id : Number(userId)},
-            data:{name}
-        });
-
-        res.status(200).json(patchUser)
-    
-    } catch (error) {
-        res.status(500);
-        res.end("Error: Invalid format of data")
+        const findUser = await findUserById(req.params.userId);
+        if (!findUser) return res.status(404).json({ error: "User not found" })
+        const putUser = await updateNewUser(req.params.userId, req.body);
+        if (!putUser) return res.status(404).json({ error: "invalid format of data" });
+        res.status(200).json(putUser);
+    }catch (error){
+        res.status(500).json({error: "Error retrieving user"})
     }
-});
+})

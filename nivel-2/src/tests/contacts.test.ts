@@ -1,6 +1,6 @@
 import request from "supertest";
 import {app} from "../app"; // Asegúrate de exportar tu app en el archivo app.ts
-import { prisma } from "../models/db.models";
+import { prisma } from "../models/contact.models";
 
 describe('Contacts API', () => {
     let userId: number;

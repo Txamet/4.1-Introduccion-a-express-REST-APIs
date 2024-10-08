@@ -7,45 +7,45 @@ POST {{BASE_URL}}/users
 Content-Type: application/json
 
 {
-    "name": "Jessica Sage"
+    "name": "Jimmy Page"
 }
 
 
-### Update user name
-PATCH {{BASE_URL}}/users/1
+### Update user 1 name
+PATCH {{BASE_URL}}/users/4
 Content-Type: application/json
 
 {
-    "name": "Jimmy Page - modified"
+    "name": "user 4"
 }
 
 
 ### Add contact 1 to user 1 list
-POST {{BASE_URL}}/contacts/2
+POST {{BASE_URL}}/contacts/1
 Content-Type: application/json
 
 {
-    "name": "Samantha",
+    "name": "Jone",
     "last_name": "Doe",
-    "email": "sam@gmail.com",
+    "email": "jon@gmail.com",
     "phone_number": 600000521
 }
 
 
 ### Add contact 2 to user 1 list
-POST {{BASE_URL}}/contacts/2
+POST {{BASE_URL}}/contacts/1
 Content-Type: application/json
 
 {
-    "name": "John",
+    "name": "Jane",
     "last_name": "Doe",
-    "email": "john@gmail.com",
+    "email": "fone@gmail.com",
     "phone_number": 600000000
 }
 
 
 ### Delete contact 1
-DELETE {{BASE_URL}}/contacts/1
+DELETE {{BASE_URL}}/contacts/3
 
 
 ### Recover contact 1
@@ -53,7 +53,7 @@ PATCH {{BASE_URL}}/contacts/1/recover
 
 
 ### Update contact 2 data
-PUT {{BASE_URL}}/contacts/3
+PUT {{BASE_URL}}/contacts/2
 Content-Type: application/json
 
 {
@@ -65,14 +65,14 @@ Content-Type: application/json
 
 
 ### Mark as favorite contact 2
-PATCH {{BASE_URL}}/contacts/2/favorites
+PATCH {{BASE_URL}}/contacts/3/favorites
 
 
-### Show a list with all the contacts of User 2 order by alphabet
-GET {{BASE_URL}}/contacts/2
+### Show a list with all the contacts of User 1 order by alphabet
+GET {{BASE_URL}}/contacts/1
 
 ### Show User 1 favorites contacts
 GET {{BASE_URL}}/contacts/1/favorites
 
-### Show user 2 Deleted contacts list
+### Show user 1 Deleted contacts list
 GET {{BASE_URL}}/contacts/1/deleted

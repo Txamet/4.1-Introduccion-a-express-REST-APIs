@@ -1,13 +1,13 @@
 import request from "supertest";
 import {app} from "../app";
-import { prisma } from "../models/db.models";
+import { prismaUser } from "../models/users.models";
 
 describe('Users API', () => {
     let userId: number;
 
     afterAll(async () => {
-        await prisma.user.deleteMany();
-        await prisma.$disconnect();
+        await prismaUser.user.deleteMany();
+        await prismaUser.$disconnect();
     });
 
     it('should create a user', async () => {
