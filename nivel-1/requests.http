@@ -45,7 +45,7 @@ PATCH {{BASE_URL}}/contacts/2/favorites
 
 
 ### Recover contact 1
-PATCH {{BASE_URL}}/contacts/2/recover
+PATCH {{BASE_URL}}/contacts/1/recover
 
 
 ### Show contacts list

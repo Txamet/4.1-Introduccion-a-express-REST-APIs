@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-
+/*
 let prisma: PrismaClient;
 
 if (process.env.NODE_ENV === 'test') {
@@ -8,7 +8,9 @@ if (process.env.NODE_ENV === 'test') {
 } else {
     prisma = new PrismaClient();
 }
+*/
 
+const prisma = new PrismaClient();
 
 export const getAllContacts = async () => {
     return await prisma.contact.findMany({
