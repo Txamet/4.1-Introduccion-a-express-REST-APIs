@@ -1,14 +1,4 @@
 import { PrismaClient } from '@prisma/client';
-/*
-let prisma: PrismaClient;
-
-if (process.env.NODE_ENV === 'test') {
-    prisma = require('../test/client').default;
-
-} else {
-    prisma = new PrismaClient();
-}
-*/
 
 const prisma = new PrismaClient();
 

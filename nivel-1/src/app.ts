@@ -2,6 +2,7 @@ import express, { json } from "express";
 const app = express();
 const contact_routes = require("./routes/app.routes");
 import dotenv from "dotenv";
+
 dotenv.config();
 
 app.use(express.json());
