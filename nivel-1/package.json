@@ -3,11 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "npm run migrate:test && jest app.test.ts",
+    "test": "npm run resetdb:test && jest app.test.ts",
     "nodemon": "nodemon ./dist/app.js",
-    "migrate:test": "npx prisma migrate dev --schema=prisma/schema.test.prisma",
-    "migrate": "npx prisma migrate dev --name init",
-    "api": "npm run migrate && node ./dist/app.js" 
+    "resetdb:test": "npx prisma db push --schema=prisma/schema.test.prisma --force-reset",
+    "api": "npx prisma db push --schema=prisma/schema.prisma && node ./dist/app.js" 
   },
   "keywords": [],
   "author": "Jaume Blanco - Rene Hernandez",
