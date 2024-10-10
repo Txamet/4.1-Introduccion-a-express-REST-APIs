@@ -3,11 +3,14 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "jest --runInBand"
+    "test": "npm run resetdb:test && jest endPoints.test.ts",
+    "nodemon": "nodemon ./dist/app.js",
+    "resetdb:test": "npx prisma db push --schema=prisma/schema.test.prisma --force-reset",
+    "api": "npx prisma db push --schema=prisma/schema.prisma && node ./dist/app.js" 
   },
   "keywords": [],
   "author": "Jaume Blanco - Rene Hernandez",
-  "license": "MIT",
+  "license": "IT Academy",
   "description": "",
   "dependencies": {
     "@prisma/client": "^5.20.0",

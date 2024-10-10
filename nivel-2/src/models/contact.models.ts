@@ -1,12 +1,4 @@
-import { PrismaClient } from '@prisma/client';
-
-export let prisma: PrismaClient
-
-if (process.env.NODE_ENV === 'test') {
-    prisma = require('../tests/client').default;
-} else {
-    prisma = new PrismaClient();
-}
+import prisma from '../prismaClient'
 
 export const getAllContacts = async () => {
     return await prisma.contact.findMany({

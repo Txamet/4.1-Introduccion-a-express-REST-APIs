@@ -12,11 +12,11 @@ Content-Type: application/json
 
 
 ### Update user 1 name
-PATCH {{BASE_URL}}/users/4
+PATCH {{BASE_URL}}/users/1
 Content-Type: application/json
 
 {
-    "name": "user 4"
+    "name": "Jimmy Page edited"
 }
 
 
@@ -45,7 +45,7 @@ Content-Type: application/json
 
 
 ### Delete contact 1
-DELETE {{BASE_URL}}/contacts/3
+DELETE {{BASE_URL}}/contacts/1
 
 
 ### Recover contact 1
@@ -57,15 +57,15 @@ PUT {{BASE_URL}}/contacts/2
 Content-Type: application/json
 
 {
-    "name": "John",
+    "name": "Jane",
     "last_name": "Doe edited",
-    "email": "john_doe@gmail.com",
-    "phone_number": 600000000
+    "email": "jfone@gmail.com",
+    "phone_number": 600000002
 }
 
 
 ### Mark as favorite contact 2
-PATCH {{BASE_URL}}/contacts/3/favorites
+PATCH {{BASE_URL}}/contacts/2/favorites
 
 
 ### Show a list with all the contacts of User 1 order by alphabet

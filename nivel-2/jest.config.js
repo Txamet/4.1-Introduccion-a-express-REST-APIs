@@ -5,6 +5,7 @@ module.exports = {
   transform: {
     '^.+\\.ts$': 'ts-jest', 
   },
-  testMatch: ['**/tests/**/*.test.ts'], // Asegúrate de que Jest busque archivos de prueba en la carpeta correcta
+  testMatch: ['**/tests/**/*.test.ts'],
   moduleFileExtensions: ['ts', 'js', 'json', 'node'],
+  
 };
