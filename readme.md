@@ -22,7 +22,7 @@ Devuelve un mensaje personalizado si:
 - Se intenta crear un contacto con un formato incorrecto.
 - Se intenta buscar, actualizar o eliminar un contacto que no existe.
 
-### Nivel 2 ⭐⭐: Gestión de Usuarios y Contactos Asociados
+## Nivel 2 ⭐⭐: Gestión de Usuarios y Contactos Asociados
 
 En este nivel, añadimos una entidad **Usuarios** a nuestra API, permitiendo que cada usuario gestione su propia lista de contactos.
 
