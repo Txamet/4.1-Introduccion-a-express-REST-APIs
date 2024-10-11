@@ -1,20 +1,15 @@
-import { PrismaClient } from '@prisma/client';
 import { getAllContacts, createNewContact, deleteOneContact, uptadeOneContact, recoverOneContact, favoriteOneContact, findContactByEmail, findContactById, findDeletedContactById } from "../models/app.models"
-
-const prisma = new PrismaClient();
 
 export const createContact = (async(req: any, res: any)=>{
     try {
         const searchContact = await findContactByEmail(req.body);
-        if (searchContact) return res.status(400).json({error: "Contact already exists"});
+        if (searchContact) return res.status(409).json({error: "Contact already exists"});
 
         const newContact = await createNewContact(req.body);
-        if (!newContact) return res.status(404).json({error: "Invalid format of data"});
-
         res.status(200).json(newContact);  
 
     } catch (error) {
-        res.status(500).json({error: "Error creating contact"});
+        res.status(500).json({error: "Error creating contact: Invalid format of data"});
     }
 });
 
@@ -27,11 +22,11 @@ export const deleteContact = (async(req: any,res: any)=>{
 
         } else {
             await deleteOneContact(req.params.contactId);
-            res.status(200).end("Contact deleted") ;
+            res.status(200).json({success: "Contact deleted"}) ;
         }
 
     } catch (error) {
-        res.status(500).json({error: "Error retrieving contact"});
+        res.status(500).json({error: "Error trying to delete contact"});
     }
 });
 
@@ -56,10 +51,10 @@ export const recoverContact = (async (req: any, res: any) => {
         if (!searchContactById) return res.status(404).json({error: "Contact not found"});
 
         const searchContactByEmail = await findContactByEmail(searchContactById);
-        if (searchContactByEmail) return res.status(400).json({error: "Contact already exists with another contactId"});
+        if (searchContactByEmail) return res.status(409).json({error: "Contact already exists with another contactId"});
     
         await recoverOneContact(req.params.contactId);
-        res.status(200).end("Contact recovered"); 
+        res.status(200).json({success: "Contact recovered"}); 
 
     } catch (error) {
         res.status(500).json({error: "Error retrieving contact"});
@@ -90,10 +85,10 @@ export const getContacts = (async(req: any, res: any)=>{
         const showContacts = await getAllContacts();
 
         if (showContacts.length == 0) {
-            res.status(200).json({error: "Contacts list is empty"});  
+            res.status(200).json("Contacts list is empty");  
 
         } else {
-            res.json(showContacts);     
+            res.status(200).json(showContacts);     
         }
 
     } catch (error) {
