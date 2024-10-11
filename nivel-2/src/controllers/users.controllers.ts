@@ -1,6 +1,6 @@
 import { searchUser, findUserById, createNewUser, updateNewUser } from "../models/users.models";
 
-//crear usuario
+
 export const createUser = (async (req: any, res: any) => {
     try {
         const findUser = await searchUser(req.body);
@@ -16,7 +16,7 @@ export const createUser = (async (req: any, res: any) => {
 
 });
 
-//Update usuario
+
 export const updateUser = (async (req: any, res: any) => {
     try {
         const findUser = await findUserById(req.params.userId);

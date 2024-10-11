@@ -4,9 +4,9 @@ Este proyecto es una introducción a la creación de REST APIs con Express y Typ
 
 La aplicación se conecta a una base de datos MySQL y ofrece funcionalidad básica de CRUD para gestionar contactos.
 
-## Nivel 1 ⭐: Funcionalidades
+### Nivel 1 ⭐: Gestión de Contactos
 
-Implementa las siguientes funcionalidades para la gestión de contactos:
+Implementa las siguientes funcionalidades para gestionar contactos:
 
 - **POST /contacts**: Añadir un nuevo contacto a la lista.
 - **DELETE /contacts/:contactId**: Eliminar un contacto existente.
@@ -22,7 +22,26 @@ Devuelve un mensaje personalizado si:
 - Se intenta crear un contacto con un formato incorrecto.
 - Se intenta buscar, actualizar o eliminar un contacto que no existe.
 
+### Nivel 2 ⭐⭐: Gestión de Usuarios y Contactos Asociados
 
+En este nivel, añadimos una entidad **Usuarios** a nuestra API, permitiendo que cada usuario gestione su propia lista de contactos.
+
+### Funcionalidad:
+- Cada usuario puede crear y gestionar varios contactos.
+- Un contacto solo puede ser creado por un único usuario.
+
+### Endpoints de la API:
+
+- **POST /users** → Crear un usuario.
+- **PATCH /users/{userId}** → Modificar el nombre de un usuario.
+- **POST /contacts/{userId}** → Añadir un contacto a la lista de un usuario.
+- **GET /contacts/{userId}** → Mostrar la lista de contactos de un usuario, ordenados alfabéticamente por nombre.
+- **GET /contacts/{userId}/favorites** → Mostrar los contactos favoritos de un usuario.
+- **GET /contacts/{userId}/deleted** → Mostrar los contactos eliminados de un usuario.
+
+## Nivel 3 ⭐⭐⭐
+
+Añadir pruebas (testing) para verificar el correcto funcionamiento de cada endpoint.
 
 
 ## 💻 Tecnologías Utilizadas
@@ -33,7 +52,6 @@ Devuelve un mensaje personalizado si:
 - **MySQL**: Base de datos relacional.
 - **Prisma**: ORM para gestionar el acceso a la base de datos.
 - **Nodemon**: Herramienta para reiniciar automáticamente el servidor durante el desarrollo.
-- **REST Client**: Para probar las APIs en VS Code (opcional, pero recomendado).
 
 ## Requisitos
 
@@ -41,7 +59,7 @@ Devuelve un mensaje personalizado si:
 - Nodemon
 - MySQL
 - [Prisma](https://www.prisma.io/) para la gestión de base de datos
-- Extensión REST Client para probar las APIs (opcional, pero recomendado)
+- Extensión REST Client para probar las APIs (opcional, pero recomendado para pruebas en VS Code)
 - 
 
 ## 🛠️ Instalación
@@ -53,10 +71,12 @@ Clona el repositorio localmente usando el siguiente comando:
 `git clone https://github.com/Txamet/4.1-Introduccion-a-express-REST-APIs.git`
 
 
-### 2. Seleccionar la carpeta raíz del proyecto
-Una vez clonado el repositorio, navega a la carpeta raíz:
+### 2. Navegar a la carpeta del nivel deseado
+Una vez clonado el repositorio, navega a la carpeta raíz del nivel que te interese ejecutar: por ejemplo para el nivel cero
 
-`cd 4.1-Introduccion-a-express-REST-APIs\Nivel2`
+`cd 4.1-Introduccion-a-express-REST-APIs\nivel-X`
+
+Reemplaza NivelX por el nivel que desees: Nivel1 o Nivel2
 
 ### 3. Instalar dependencias
 
@@ -75,28 +95,41 @@ Aplica las migraciones a tu base de datos MySQL con Prisma:
 `npx prisma migrate dev --name init`
 ## ▶️ Ejecución
 
-Compila el proyecto de TypeScript a JavaScript:
+#### Compila el proyecto de TypeScript a JavaScript:
 
 `npx tsc`
-### 1. Cambiar a la carpeta dist
-El código compilado estará en la carpeta dist. Cambia a esa carpeta:
+### Iniciar el servidor
+Usa Nodemon para iniciar el servidor en modo desarrollo:
 
-`cd dist`
-### 2. Inicializar el servidor
-Inicia el servidor utilizando nodemon:
+`npm run nodemon`
 
-`nodemon app`
-### 3. Probar las solicitudes (requests)
-Para probar las diferentes solicitudes de la API, te recomendamos utilizar la extensión `REST Client` en tu editor de código (por ejemplo, VS Code).
+O, para modo producción:
 
-Abre el archivo `requests.http` en el editor.
+`npm run api`
+Este comando sincroniza la base de datos con el esquema principal (prisma/schema.prisma) e inicia el servidor desde el archivo `dist/app.js`.
+
+### Probar las solicitudes
+Puedes usar la extensión `REST Client` en VS Code para probar los endpoints. 
+Abre el archivo `requests.http` y haz clic en `Send Request`.
 Si es necesario, edita el número de puerto para que coincida con el configurado en tu archivo `.env`
 
-Haz clic en `Send Request` que aparece en la parte superior de cada una de las solicitudes para verificar su funcionalidad.
+###  🧪  Testing
+### Ejecutar pruebas
+`npm run test`
+Este comando reinicia la base de datos de pruebas y ejecuta los tests con Jest
 
-*Nota sobre la actualización de contactos
+Si necesitas reiniciar manualmente la base de datos de pruebas y sincronizar el esquema de la base de datos de test, puedes correr:
 
-Al utilizar el endpoint de actualización de contactos, puede aparecer un error relacionado con el campo `phone_number`. Asegúrate de que este campo esté en formato numérico en lugar de cadena (`string`).
+`npm run resetdb:test`
+
+Esto forzará la reinicialización de la base de datos de pruebas usando el esquema `prisma/schema.test.prisma`
+
+
+### Explicación:
+- **`npm test`**: Este comando ejecuta las pruebas después de reiniciar la base de datos en el entorno de pruebas.
+- **`npm run nodemon`**: Ejecuta el servidor con **Nodemon**, lo cual reinicia automáticamente el servidor cuando se detectan cambios.
+- **`npm run resetdb:test`**: Reinicia manualmente la base de datos de pruebas.
+- **`npm run api`**: Sincroniza la base de datos y ejecuta la API en modo producción.
 
 ## 🤝 Contribuciones
 

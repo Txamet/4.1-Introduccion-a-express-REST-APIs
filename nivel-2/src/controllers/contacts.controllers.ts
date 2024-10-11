@@ -13,6 +13,8 @@ import{
     getUserDeletedContacts,
 }from "../models/contact.models";
 
+import{findUserById} from "../models/users.models"
+
 export const getContacts = async (req: any, res: any) => {
     try {
         const contacts = await getAllContacts();
@@ -107,10 +109,14 @@ export const favoriteContact = async (req: any, res: any) => {
 export const getUserContactsController = async (req: any, res: any) => {
     try {
         const { userId } = req.params;
+
+        const user= await findUserById(Number(userId));
+        if(!user){return res.status(404).json({ error: "User not found" });}
+
         const contacts = await getUserContacts(Number(userId));
 
         if (contacts.length === 0) {
-            res.status(200).end("Contact list is empty");
+            res.status(200).json({ message: "Contact list is empty" });
         } else {
             res.json(contacts);
         }
@@ -123,10 +129,13 @@ export const getUserContactsController = async (req: any, res: any) => {
 export const getUserFavoritesController = async (req: any, res: any) => {
     try {
         const { userId } = req.params;
+        const user= await findUserById(Number(userId));
+        if(!user){return res.status(404).json({ error: "User not found" });}
+
         const favorites = await getUserFavorites(Number(userId));
 
         if (favorites.length === 0) {
-            res.status(200).end("Favorite list is empty");
+            res.status(200).json({message:"Favorite list is empty"});
         } else {
             res.json(favorites);
         }
@@ -138,10 +147,13 @@ export const getUserFavoritesController = async (req: any, res: any) => {
 export const getUserDeletedContactsController = async (req: any, res: any) => {
     try {
         const { userId } = req.params;
+        const user= await findUserById(Number(userId));
+        if(!user){return res.status(404).json({ error: "User not found" });}
+
         const deletedContacts = await getUserDeletedContacts(Number(userId));
 
         if (deletedContacts.length === 0) {
-            res.status(200).end("There are no deleted contacts");
+            res.status(200).json({message:"There are no deleted contacts"});
         } else {
             res.json(deletedContacts);
         }
