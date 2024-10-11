@@ -4,7 +4,6 @@
   "main": "index.js",
   "scripts": {
     "test": "npm run resetdb:test && jest app.test.ts",
-    "nodemon": "nodemon ./dist/app.js",
     "resetdb:test": "npx prisma db push --schema=prisma/schema.test.prisma --force-reset",
     "api": "npx prisma db push --schema=prisma/schema.prisma && node ./dist/app.js" 
   },

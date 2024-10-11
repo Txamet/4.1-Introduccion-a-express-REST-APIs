@@ -16,4 +16,3 @@ router.patch("/:contactId/recover", recoverContact);
 router.patch("/:contactId/favorites", favoriteContact)
 
 module.exports = router;
-//export default router
