@@ -1,4 +1,4 @@
-# 4.1-Introduccion a express-REST-APIs
+# 4.1-Introducción a express: REST API
 
 Este proyecto es una introducción a la creación de REST APIs con Express y TypeScript.
 
