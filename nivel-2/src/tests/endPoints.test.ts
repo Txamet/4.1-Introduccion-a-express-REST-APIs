@@ -1,17 +1,9 @@
 import request from "supertest";
 import { app, server } from "../app";
-import prisma from '../prismaClient'
 
-beforeAll(async () => {
-  process.env.DATABASE_URL = process.env.DATABASE_URL_TEST;
-  await prisma.$connect();
-});
-
-afterAll(async () => {
-  await prisma.$disconnect();
+afterAll( () => {
   server.close();
 });
-
 
 describe('POST/users', () => {
   let id: number;

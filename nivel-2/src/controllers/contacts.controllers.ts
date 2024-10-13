@@ -85,6 +85,9 @@ export const recoverContact = async (req: any, res: any) => {
 
         if (!contact) return res.status(404).json({ error: "Deleted contact not found" });
 
+        const searchContactByEmail = await findContactByEmail(contact.email);
+        if (searchContactByEmail) return res.status(409).json({error: "Contact already exists with another contactId"});
+
         const recoveredContact = await recoverOneContact(contactId);
         res.status(200).json(recoveredContact);
     } catch (error) {
