@@ -1,6 +1,6 @@
 ### Edit PORT number in this line 
 @BASE_URL= http://localhost:3000
-### Add Contact
+### Add contact 1
 POST {{BASE_URL}}/contacts
 Content-Type: application/json
 
@@ -12,7 +12,7 @@ Content-Type: application/json
 }
 
 
-### Add Second Contact
+### Add Contact 2
 POST {{BASE_URL}}/contacts
 Content-Type: application/json
 
@@ -24,11 +24,11 @@ Content-Type: application/json
 }
 
 
-### Delete Contact
+### Delete contact 1
 DELETE {{BASE_URL}}/contacts/1
 
 
-### Update contact Info
+### Update contact 2 data
 PUT {{BASE_URL}}/contacts/2
 Content-Type: application/json
 
@@ -36,21 +36,18 @@ Content-Type: application/json
     "name": "Jhon",
     "last_name": "Doe edited",
     "email": "jon_doe@gmail.com",
-    "phone_number": "600000000"
+    "phone_number": 600000000
 }
 
 
-### Mark Favorite Conctact
+### Mark contact 2 as favorite
 PATCH {{BASE_URL}}/contacts/2/favorites
 
 
-### Recover Contact
+### Recover contact 1
 PATCH {{BASE_URL}}/contacts/1/recover
 
 
-### Show Contact List
+### Show contacts list
 GET {{BASE_URL}}/contacts
 
-
-### Show Contact by ID
-GET {{BASE_URL}}/contacts/1

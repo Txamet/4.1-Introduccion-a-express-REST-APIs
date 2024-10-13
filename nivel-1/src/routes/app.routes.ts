@@ -1,11 +1,9 @@
-import express, { json } from "express";
-import { getContacts, getContact, createContact, deleteContact, uptadeContact, recoverContact, favoriteContact } from "../controllers/app.controllers";
+import express from "express";
+import { getContacts, createContact, deleteContact, uptadeContact, recoverContact, favoriteContact } from "../controllers/app.controllers";
 
 const router = express.Router();
 
 router.get("/", getContacts);
-
-router.get("/:contactId", getContact);
 
 router.post("/", createContact);
 

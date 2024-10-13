@@ -1,12 +1,21 @@
 import express from "express";
-import { deleteContact, uptadeContact, recoverContact, favoriteContact, getContacts, createUserContact, getUserContacts, getUserFavorites, getUserDeletedContacts } from "../controllers/contacts.controllers";
+import { deleteContact, 
+    updateContact, 
+    recoverContact, 
+    favoriteContact, 
+    getContacts, 
+    createUserContact,
+     getUserContactsController, 
+     getUserFavoritesController, 
+     getUserDeletedContactsController
+     } from "../controllers/contacts.controllers";
 
 const router = express.Router();
 
 
 router.delete("/:contactId", deleteContact);
 
-router.put("/:contactId", uptadeContact);
+router.put("/:contactId", updateContact);
 
 router.patch("/:contactId/recover", recoverContact);
 
@@ -16,10 +25,10 @@ router.get("/", getContacts)
 
 router.post("/:userId", createUserContact);
 
-router.get("/:userId",getUserContacts);
+router.get("/:userId",getUserContactsController);
 
-router.get("/:userId/favorites", getUserFavorites)
+router.get("/:userId/favorites", getUserFavoritesController)
 
-router.get("/:userId/deleted", getUserDeletedContacts)
+router.get("/:userId/deleted", getUserDeletedContactsController)
 
 export default router;

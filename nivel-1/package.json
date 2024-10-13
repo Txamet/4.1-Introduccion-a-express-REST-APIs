@@ -3,24 +3,35 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npm run resetdb:test && jest app.test.ts",
+    "resetdb:test": "npx prisma db push --schema=prisma/schema.test.prisma --force-reset",
+    "api": "npx prisma db push --schema=prisma/schema.prisma && node ./dist/app.js" 
   },
   "keywords": [],
   "author": "Jaume Blanco - Rene Hernandez",
-  "license": "MIT",
+  "license": "IT Academy",
   "description": "",
   "dependencies": {
-    "@prisma/client": "^5.20.0",
     "dotenv": "^16.4.5"
   },
   "devDependencies": {
+    "@prisma/client": "^5.20.0",
     "@types/express": "^5.0.0",
     "@types/jest": "^29.5.13",
+    "@types/node": "^22.7.4",
+    "@types/supertest": "^6.0.2",
+    "cross-env": "^7.0.3",
     "express": "^4.21.0",
     "jest": "^29.7.0",
+    "jest-mock-extended": "^3.0.7",
     "nodemon": "^3.1.7",
     "prisma": "^5.20.0",
+    "supertest": "^7.0.0",
     "ts-jest": "^29.2.5",
     "typescript": "^5.6.2"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node"
   }
 }
