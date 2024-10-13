@@ -56,11 +56,8 @@ Añadir pruebas (testing) para verificar el correcto funcionamiento de cada endp
 ## Requisitos
 
 - Node.js
-- Nodemon
 - MySQL
-- [Prisma](https://www.prisma.io/) para la gestión de base de datos
-- Extensión REST Client para probar las APIs (opcional, pero recomendado para pruebas en VS Code)
-- 
+- Extensión REST Client para VS Code 
 
 ## 🛠️ Instalación
 ### 1. Clonar el repositorio
@@ -72,64 +69,55 @@ Clona el repositorio localmente usando el siguiente comando:
 
 
 ### 2. Navegar a la carpeta del nivel deseado
-Una vez clonado el repositorio, navega a la carpeta raíz del nivel que te interese ejecutar: por ejemplo para el nivel cero
+Una vez clonado el repositorio:
 
-`cd 4.1-Introduccion-a-express-REST-APIs\nivel-X`
+`cd 4.1-Introduccion-a-express-REST-APIs`
 
-Reemplaza NivelX por el nivel que desees: Nivel1 o Nivel2
+Ahora has de acceder al nivel que deseas probar:
+
+- Para acceder al nivel 1:
+
+   `cd nivel-1`
+
+- Para acceder al nivel 2:
+
+   `cd nivel-2`
 
 ### 3. Instalar dependencias
 
-Instala todas las dependencias necesarias utilizando npm:
+Dentro de la carpeta del nivel que queremos probar, instala todas las dependencias necesarias:
 
  `npm install`
 ### 4. Configurar variables de entorno
-Crea un archivo `.env` en la raíz del proyecto.
+Crea un archivo `.env` en la carpeta del nivel que quieras probar.
 
 Puedes copiar y pegar el contenido del archivo `env.example` y luego editarlo con los datos de tu base de datos `mySQL` y el puerto que prefieras usar.
 
 
-### 5. Migrar el esquema a la base de datos MySQL
-Aplica las migraciones a tu base de datos MySQL con Prisma:
-
-`npx prisma migrate dev --name init`
 ## ▶️ Ejecución
 
 #### Compila el proyecto de TypeScript a JavaScript:
 
 `npx tsc`
 ### Iniciar el servidor
-Usa Nodemon para iniciar el servidor en modo desarrollo:
-
-`npm run nodemon`
-
-O, para modo producción:
+Ejecuta la api para iniciar el servidor: 
 
 `npm run api`
+
 Este comando sincroniza la base de datos con el esquema principal (prisma/schema.prisma) e inicia el servidor desde el archivo `dist/app.js`.
 
 ### Probar las solicitudes
 Puedes usar la extensión `REST Client` en VS Code para probar los endpoints. 
-Abre el archivo `requests.http` y haz clic en `Send Request`.
+Abre el archivo `request.http` y comprueba cada request clicando en `Send Request`.
 Si es necesario, edita el número de puerto para que coincida con el configurado en tu archivo `.env`
 
 ###  🧪  Testing
 ### Ejecutar pruebas
 `npm run test`
-Este comando reinicia la base de datos de pruebas y ejecuta los tests con Jest
 
-Si necesitas reiniciar manualmente la base de datos de pruebas y sincronizar el esquema de la base de datos de test, puedes correr:
-
-`npm run resetdb:test`
-
+Este comando reinicia la base de datos de pruebas y ejecuta los tests con Jest.
 Esto forzará la reinicialización de la base de datos de pruebas usando el esquema `prisma/schema.test.prisma`
 
-
-### Explicación:
-- **`npm test`**: Este comando ejecuta las pruebas después de reiniciar la base de datos en el entorno de pruebas.
-- **`npm run nodemon`**: Ejecuta el servidor con **Nodemon**, lo cual reinicia automáticamente el servidor cuando se detectan cambios.
-- **`npm run resetdb:test`**: Reinicia manualmente la base de datos de pruebas.
-- **`npm run api`**: Sincroniza la base de datos y ejecuta la API en modo producción.
 
 ## 🤝 Contribuciones
 
